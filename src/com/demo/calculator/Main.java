@@ -21,4 +21,10 @@ public class Main {
         System.out.println("Calculator app, multiply " + x + "," + y + " = " + result);
     }
 
+    private void testM() {
+
+        System.out.println("test");
+        
+    }
+
 }
