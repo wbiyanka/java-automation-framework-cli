@@ -1,25 +1,102 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.demo.calculator</groupId>
-    <artifactId>calculator</artifactId>
+    <groupId>com.demo.automation</groupId>
+    <artifactId>web-automation-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
+        <!-- Java version - using Java 11 for wide compatibility -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <!-- Ensures special characters (like UTF-8) are handled correctly -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>Calculator</name>
 
     <dependencies>
+
+        <!-- ============================================================
+             Selenium WebDriver - the core browser automation library
+             
+             Selenium automates browsers. It lets you simulate user actions
+             like clicking buttons, typing text, and navigating pages.
+             Version 4.x supports W3C WebDriver standard.
+             ============================================================ -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.15.0</version>
+        </dependency>
+
+        <!-- ============================================================
+             WebDriverManager - automatic driver binary management
+             
+             WebDriverManager automatically downloads and sets up the
+             correct browser driver (chromedriver, geckodriver, etc.)
+             based on the installed browser version.
+             
+             Without this, you'd need to manually download driver binaries
+             and set system properties - a common pain point for beginners.
+             ============================================================ -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.6.2</version>
+        </dependency>
+
+        <!-- ============================================================
+             JUnit Jupiter 5 - modern testing framework
+             
+             JUnit 5 is the industry standard for Java unit testing.
+             It provides annotations like @Test, @BeforeEach, @AfterEach
+             and assertion methods like Assertions.assertEquals().
+             
+             The "test" scope means this dependency is only available
+             for test code (src/test/java), not production code.
+             ============================================================ -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- ============================================================
+                 Maven Surefire Plugin - Runs the tests during "mvn test"
+                 
+                 Version 3.0.0+ properly supports JUnit 5 (Jupiter).
+                 Older versions (like 2.12.4) only support JUnit 3/4 and
+                 will NOT find @Test annotated methods.
+                 ============================================================ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+
+            <!-- ============================================================
+                 Maven Compiler Plugin - Compiles Java source code
+                 
+                 Explicitly setting a newer version ensures proper
+                 Java 11+ annotation processing support.
+                 ============================================================ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
